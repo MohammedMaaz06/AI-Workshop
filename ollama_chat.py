@@ -1,43 +1,43 @@
-﻿import json
-import re
-import urllib.request
+﻿from ollama import Client
 
-question = input("User: ")
+# 1. Initialize the Ollama client
+client = Client(host="http://localhost:11434")
 
-url = "http://localhost:11434/api/chat"
-data = {
-    "model": "qwen3.5:0.8b",
-    "messages": [
-        {
-            "role": "system",
-            "content": (
-                "Do not use bullet points or numbering."
-            ),
-        },
-        {"role": "user", "content": question},
-    ],
-    "options": {
-        "temperature": 300,
-    },
-    "stream": False,
-}
+# 2. Store the conversation history
+messages = [
+    {
+        "role": "system",
+        "content": (
+            "You are a helpful AI assistant. "
+            "Keep your answers simple, clear, and informative. "
+            "Do not use bullet points or numbering."
+        ),
+    }
+]
 
-req = urllib.request.Request(
-    url,
-    data=json.dumps(data).encode("utf-8"),
-    headers={"Content-Type": "application/json"},
-)
+print("Welcome to Ollama AI Chatbot!")
+print("Type 'exit' to stop chatting.\n")
 
-try:
-    with urllib.request.urlopen(req) as response:
-        result = json.loads(response.read().decode("utf-8"))
-        raw_content = result.get("message", {}).get("content", "")
+# 3. Main chat loop
+while True:
+    user_input = input("You: ").strip()
 
-        # Remove internal <think>...</think> reasoning blocks if present
-        clean_answer = re.sub(
-            r"<think>.*?</think>", "", raw_content, flags=re.DOTALL
-        ).strip()
+    if user_input.lower() == "exit":
+        print("Goodbye!")
+        break
 
-        print("\nAI:", clean_answer if clean_answer else raw_content)
-except Exception as e:
-    print(f"\nError connecting to Ollama: {e}")
+    if not user_input:
+        continue
+
+    # Append user message to history
+    messages.append({"role": "user", "content": user_input})
+
+    # Call the model (change 'llama3' to your installed model)
+    response = client.chat(model="llama3", messages=messages)
+
+    # Extract assistant reply
+    assistant_reply = response["message"]["content"]
+    print(f"\nAssistant: {assistant_reply}\n")
+
+    # Append assistant reply to preserve conversation context
+    messages.append({"role": "assistant", "content": assistant_reply})
