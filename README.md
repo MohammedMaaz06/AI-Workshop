@@ -10,3 +10,6 @@ Welcome to the AI Workshop repository! This project covers hands-on implementati
 
 ## Project Structure & Features
 - **app.py**: Python client connecting to a local Ollama instance running qwen3.5:0.8b with automated reasoning filtering (<think>...</think>).
+
+## Additional Workshop Topics
+- **Object Detection with YOLOv8 & Roboflow**: Training custom hand-detection models using datasets sourced from Roboflow Universe and fine-tuning via Ultralytics YOLO.
