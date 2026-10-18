@@ -8,10 +8,12 @@ Welcome to the AI Workshop repository! This project covers hands-on implementati
 3. **Cloud LLM Acceleration with Groq**
 4. **Local LLM Execution with Ollama**
 5. **Retrieval-Augmented Generation (RAG) with ChromaDB & Groq**
+6. **Advanced PDF OCR & Document RAG (PyMuPDF & Tesseract)**
 
 ## Project Structure & Features
-- **app.py**: Python client connecting to a local Ollama instance running qwen3.5:0.8b with automated reasoning filtering (<think>...</think>).
-- **rag_college_policy.py**: RAG pipeline utilizing SentenceTransformers for vector embeddings, ChromaDB for local vector search, and Groq for context-grounded inference.
+- **ollama_chat.py**: Interactive client connecting to a local Ollama instance with continuous conversation history.
+- **rag_college_policy.py**: RAG pipeline utilizing SentenceTransformers, ChromaDB, and Groq.
+- **pdf_ocr_rag.py**: Full PDF text and embedded image OCR extraction pipeline integrated with ChromaDB vector search and Groq inference.
 
 ## Additional Workshop Topics
 - **Object Detection with YOLOv8 & Roboflow**: Training custom hand-detection models using datasets sourced from Roboflow Universe and fine-tuning via Ultralytics YOLO.
